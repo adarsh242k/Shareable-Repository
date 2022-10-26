@@ -1,0 +1,91 @@
+cd, 'C:\Users\iiser\Documents\CME_Project\20100408\20100408_d4c2A\'
+
+filea= file_search('*_d4c2A.fts',count = na2)
+images=sccreadfits(filea,headers,/nodata,/SILENT)
+    ok=where(headers.naxis1 eq 2048 and headers.naxis2 eq 2048, na22)
+    if na22 gt 0 then fla=filea(ok)
+
+;secchi_prep, fla[0], hdr0, bkg_c2A, /silent,/smask_on,$    ;;here background has been assumed an image having no CME
+            ;/update_hdr_off,outsize=2048
+
+
+;;; Create background image ------------------------------------------------------
+
+bkgarr=fltarr(2048,2048, fix(na22/6.0))
+  for i=0,na22-1,6 do begin
+    if i+5 le na22-1 then secchi_prep, fla[i:i+5], hdr, img, /silent,/smask_on,$
+          /update_hdr_off,outsize=2048, /PRECOMMCORRECT_ON
+bkg0=min(img, dimension=3)
+    for j=0,fix(na22/6.0)-1 do begin
+bkgarr[*,*,j]=bkg0
+  endfor
+endfor
+bkg_c2A=min(bkgarr, dimension=3)
+
+;;;-----------------------------------------------------------
+
+for i = 1, na22-1 do begin
+  secchi_prep, fla[i], hdr_c2A, img_c2A, /silent,/smask_on,$
+            /update_hdr_off,outsize=2048
+
+
+  bsimg_C2A=img_c2A-bkg_c2A
+  cd, 'C:\Users\iiser\Documents\CME_Project\20100408\data_process_results\'
+  sccwritefits,strmid(fla[i],0,16)+'cbsimg_c2AA.fits',bsimg_c2A,hdr_c2A
+  cd, 'C:\Users\iiser\Documents\CME_Project\20100408\20100408_d4c2A\'
+endfor
+cd, 'C:\Users\iiser\Documents\CME_Project\20100408\data_process_results\'
+flbsimg_c2A = file_search('*_cbsimg_c2AA.fits')
+
+;------------------------------------------------------------------------
+;------------------------------------------------------------------------
+;------------------------------------------------------------------------
+;------------------------------------------------------------------------
+
+
+
+
+cd, 'C:\Users\iiser\Documents\CME_Project\20081212_d4c2B\'
+
+fileb= file_search('*_d4c2B.fts',count = nb2)
+images=sccreadfits(fileb,headers,/nodata,/SILENT)
+ok=where(headers.naxis1 eq 2048 and headers.naxis2 eq 2048, nb22)
+if nb22 gt 0 then flb=fileb(ok)
+
+
+;secchi_prep, flb[0], hdr0, bkg_c2B, /silent,/smask_on,$    ;;here background has been assumed an image having no CME
+;/update_hdr_off,outsize=2048
+
+;;------------------------------------------------------------
+bkgarr=fltarr(2048,2048, fix(nb22/6.0))
+for i=0,na22-1,6 do begin
+  if i+5 le na22-1 then secchi_prep, flb[i:i+5], hdr, img, /silent,/smask_on,$
+    /update_hdr_off,outsize=2048, /PRECOMMCORRECT_ON
+  bkg0=min(img, dimension=3)
+  for j=0,fix(na22/6.0)-1 do begin
+    bkgarr[*,*,j]=bkg0
+  endfor
+endfor
+bkg_c2B=min(bkgarr, dimension=3)
+
+;;;---------------------------------------------------
+
+for i = 1,nb22 -1 do begin
+  secchi_prep, flb[i], hdr_c2B, img_c2B, /silent,/smask_on,$
+    /update_hdr_off,outsize=2048
+
+
+  bsimg_C2B=img_c2B-bkg_c2B
+  cd, 'C:\Users\iiser\Documents\CME_Project\data_process_results\'
+  sccwritefits,strmid(flb[i],0,16)+'cbsimg_c2BB.fits',bsimg_c2B,hdr_c2B
+  cd, 'C:\Users\iiser\Documents\CME_Project\20081212_d4c2B\'
+endfor
+
+cd, 'C:\Users\iiser\Documents\CME_Project\data_process_results\'
+flbsimg_c2B = file_search('*_cbsimg_c2BB.fits')
+
+
+
+
+
+end
