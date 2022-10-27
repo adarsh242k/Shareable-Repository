@@ -1,0 +1,16 @@
+# Requirements for using gcs python (to be installed using terminal - checked for Ubuntu 20.04.4 LTS)
+
+
+
+astroquery
+matplotlib
+numpy
+scipy>=1.2.0
+sunpy[net,jpeg2000]>=2.1.0
+PyQt5
+git
+
+
+# After these follow the steps on  <https://github.com/johan12345/gcs_python> to complete the installation.
+
+# The given GITHUB repository works for images directly taken <helioviewer.org>, a modification of which is done in the file "GCS_for_local_images"
