@@ -7,4 +7,6 @@ The codes in 'IDL_Techniques.ipynb' mainly serve the following purposes -
 
 The GCS_python was adapted from - Freiherr von Forstner, J. L. (2021). GCS in Python (Version 0.2.2) [Computer software]. https://doi.org/10.5281/zenodo.5084818
 
+A better version of GCS implementation code can be found in the directory 'GCS for local images'.
+
 A fitting code 'CME measurements evaluation (just fitting - submitted_20220825)-Copy1.ipynb' was developed for impementation of FRIS model for studying the thermodynamic state of CMEs as they travel through IP space. (refer - Mishra, W., & Wang, Y. (2018). Modeling the Thermodynamic Evolution of Coronal Mass Ejections Using Their Kinematics. The Astrophysical Journal, 1, 50. https://doi.org/10.3847/1538-4357/aadb9b) 
