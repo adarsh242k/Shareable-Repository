@@ -9,4 +9,4 @@ The fts files undergo processes like -
 5. vignetting and flat-field correction, and
 6. optical distortion correction
 
-followed by getting saved in a different repository.
+followed by getting saved in a different directory.
